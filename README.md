@@ -9,6 +9,15 @@
 - `development.env`
 - `production.env`
 
+env file example:
+
+```env
+PORT=3000
+DB_USER=username
+DB_PWD=password
+DB_NAME=db_name
+```
+
 ## Packages
 
 - express

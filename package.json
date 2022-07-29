@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "NODE_ENV=development nodemon ./src/app.ts",
+    "dev": "NODE_ENV=development nodemon -L ./src/app.ts",
     "start": "npm run build && NODE_ENV=production nodemon ./dist/app.js"
   },
   "keywords": [],
