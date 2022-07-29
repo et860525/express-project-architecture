@@ -1,54 +1,58 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+import helmet from 'helmet';
 import path from 'path';
-import { Database } from './database';
 
-dotenv.config({ path: path.resolve(__dirname, `../environments/${ process.env.NODE_ENV }.env`) })
+export class App {
 
-const app = express();
+  private app = express();
 
-Database.connect();
+  constructor() {
+    this.setEnvironment();
+    this.setHelmet();
+    this.setCors();
+    this.setUrlencoded();
+    this.registerRoute();
+  }
 
-// app.use(express.json()); 全域都試用
-app.use(express.urlencoded({ extended: true }))
+  /* -------------------------------------------------------------------------- */
+  /*                               Public Methods                               */
+  /* -------------------------------------------------------------------------- */
 
-// Routes settings
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('Hello, World!!');
-});
-
-app.get('/error', (req: Request, res: Response, next: NextFunction) => {
-    // Fake API
-    const getProfile = new Promise((resolve, reject) => {
-      setTimeout(() => resolve({ name: 'HAO', age: 22 }), 100);
+  public runServer(): void {
+    this.app.listen(process.env.PORT, () => { 
+      console.log(
+          "[server]: Server is running at http://localhost:%d in %s mode",
+          process.env.PORT,
+          process.env.NODE_ENV
+      );
     });
-    const getFriends = new Promise((resolve, reject) => {
-      setTimeout(() => resolve([]), 120);
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                               Private Methods                              */
+  /* -------------------------------------------------------------------------- */
+
+  private setEnvironment(): void {
+    dotenv.config({ path: path.resolve(__dirname, `../environments/${ process.env.NODE_ENV }.env`) });
+  }
+
+  private setHelmet(): void {
+    this.app.use(helmet());
+  }
+
+  private setCors(): void {
+    this.app.use(cors());
+  }
+
+  private setUrlencoded(): void {
+    this.app.use(express.urlencoded({ extended: true }));
+  }
+
+  private registerRoute(): void {
+    this.app.get('/', (req: Request, res: Response, next: NextFunction) => {
+      res.send('Hello, World!!');
     });
-    const errorRequest = new Promise((resolve, reject) => {
-      setTimeout(() => reject('Oops!'), 2000);
-    });
-  
-    getProfile
-    .then(profile => getFriends)
-    .then(friends => errorRequest)
-    .then(() => res.send('Alright!'))
-    .catch(err => next(err));
-});
-
-import apiRouter from './routers/api.routing';
-
-app.use('/', apiRouter);
-
-// Global handle error
-app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
-    res.status(500).json({ message: err.message || err });
-});
-
-app.listen(process.env.PORT, () => { 
-    console.log(
-        "[server]: Server is running at http://localhost:%d in %s mode",
-        process.env.PORT,
-        process.env.NODE_ENV
-    );
-});
+  }
+}
