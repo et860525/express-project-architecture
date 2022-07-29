@@ -9,9 +9,10 @@ const app = express();
 
 Database.connect();
 
-app.use(express.json());
+// app.use(express.json()); 全域都試用
 app.use(express.urlencoded({ extended: true }))
 
+// Routes settings
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
     res.send('Hello, World!!');
 });
@@ -31,10 +32,15 @@ app.get('/error', (req: Request, res: Response, next: NextFunction) => {
     getProfile
     .then(profile => getFriends)
     .then(friends => errorRequest)
-    .then(() => res.send('GoGoGo!'))
+    .then(() => res.send('Alright!'))
     .catch(err => next(err));
 });
 
+import apiRouter from './routers/api.routing';
+
+app.use('/', apiRouter);
+
+// Global handle error
 app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
     res.status(500).json({ message: err.message || err });
 });
