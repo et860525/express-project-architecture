@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { StudentModel } from '../models/student';
-import { errorHandler } from '../middleware/errorMiddleware';
+import { StudentModel } from '../../../models/student';
+import { errorHandler } from '../../../middleware/errorMiddleware';
 
 const router = express.Router();
 

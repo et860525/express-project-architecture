@@ -1,9 +1,10 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
 
+import { AppRoute } from './app.routing';
 export class App {
 
   private app = express();
@@ -50,9 +51,9 @@ export class App {
     this.app.use(express.urlencoded({ extended: true }));
   }
 
+  private route = new AppRoute();
+
   private registerRoute(): void {
-    this.app.get('/', (req: Request, res: Response, next: NextFunction) => {
-      res.send('Hello, World!!');
-    });
+    this.app.use('/', this.route.router);
   }
 }
