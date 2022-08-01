@@ -1,9 +1,20 @@
-import { Router } from 'express';
+import { RouteBase } from '../../../bases/route.base';
 
-const router = Router();
+export class TodoRoute extends RouteBase {
 
-router.get('/', function(req, res) {
-  res.send('Hello todo!');
-})
+    constructor() {
+      super();
+    }
 
-export default router;
+    protected initial(): void {
+      super.initial();
+    }
+
+    protected registerRoute(): void {
+      this.router.get('/', function(req, res) {
+        res.send('Hello todos!');
+      })
+    }
+}
+
+

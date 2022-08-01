@@ -1,12 +1,20 @@
-import { Router } from 'express';
-import todoRoute from './todo/todo.routing';
+import { RouteBase } from '../../bases/route.base';
+import { TodoRoute } from './todo/todo.routing';
 
-const router = Router();
+export class ApiRoute extends RouteBase {
+  
+  private todoRoute!: TodoRoute;
 
-router.get('/', function(req, res) {
-  res.send('Hello api!');
-})
+  constructor() {
+    super();
+  }
 
-router.use('/todo', todoRoute);
+  protected initial(): void {
+    this.todoRoute = new TodoRoute();
+    super.initial();
+  }
 
-export default router;
+  protected registerRoute(): void {
+    this.router.use('/todos', this.todoRoute.router)
+  }
+}

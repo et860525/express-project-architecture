@@ -8,6 +8,7 @@ import { AppRoute } from './app.routing';
 export class App {
 
   private app = express();
+  private route: AppRoute = new AppRoute();
 
   constructor() {
     this.setEnvironment();
@@ -36,7 +37,7 @@ export class App {
   /* -------------------------------------------------------------------------- */
 
   private setEnvironment(): void {
-    dotenv.config({ path: path.resolve(__dirname, `../environments/${ process.env.NODE_ENV }.env`) });
+    dotenv.config({ path: path.resolve(__dirname, `./environments/${ process.env.NODE_ENV }.env`) });
   }
 
   private setHelmet(): void {
@@ -50,8 +51,6 @@ export class App {
   private setUrlencoded(): void {
     this.app.use(express.urlencoded({ extended: true }));
   }
-
-  private route = new AppRoute();
 
   private registerRoute(): void {
     this.app.use('/', this.route.router);
