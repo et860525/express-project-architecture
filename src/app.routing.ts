@@ -1,5 +1,5 @@
 import { RouteBase } from './bases/route.base';
-import { ApiRoute } from './routes/api/api.routing';
+import { ApiRoute } from './main/api/api.routing';
 
 export class AppRoute extends RouteBase {
 
