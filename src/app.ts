@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -30,6 +30,10 @@ export class App {
           process.env.NODE_ENV
       );
     });
+  }
+
+  public setException(handler: ErrorRequestHandler): void {
+    this.app.use(handler);
   }
 
   /* -------------------------------------------------------------------------- */
