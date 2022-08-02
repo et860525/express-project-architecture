@@ -1,5 +1,6 @@
 import express, { ErrorRequestHandler } from 'express';
 import dotenv from 'dotenv';
+import { Database } from './database';
 import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
@@ -34,6 +35,11 @@ export class App {
 
   public setException(handler: ErrorRequestHandler): void {
     this.app.use(handler);
+  }
+
+  public launchDatabase(): void {
+    const database = new Database();
+    database.connect();
   }
 
   /* -------------------------------------------------------------------------- */

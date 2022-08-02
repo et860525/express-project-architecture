@@ -1,0 +1,33 @@
+GET http://localhost:3000
+
+###
+
+POST http://localhost:3000/student
+Content-Type: application/json
+
+{
+	"first_name": "Cindy",
+	"last_name": "Curry",
+	"email": "kj1234@gmail.com",
+	"grade": "4"
+}
+
+###
+
+GET  http://localhost:3000/students
+
+###
+
+# Query
+GET  http://localhost:3000/students?first_name=Kenny&last_name=Paul
+
+###
+
+# Update name
+PATCH  http://localhost:3000/students/62e3b25506e5f4b1065af74e
+Content-Type: application/json
+
+{
+	"first_name": "Kenny",
+	"last_name": "Paul"
+}
