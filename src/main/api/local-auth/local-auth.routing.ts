@@ -17,5 +17,10 @@ export class LocalAuthRoute extends RouteBase {
 			express.json(),
 			this.responseHandler(this.controller.signup)
 		);
+		this.router.post(
+			'/signin',
+			express.json(),
+			this.responseHandler(this.controller.signin)
+		);
 	}
 };

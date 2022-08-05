@@ -4,7 +4,7 @@ import { Database } from './database';
 import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
-
+import passport from 'passport';
 import { AppRoute } from './app.routing';
 export class App {
 
@@ -15,6 +15,7 @@ export class App {
     this.setEnvironment();
     this.setHelmet();
     this.setCors();
+    this.setPassport();
     this.setUrlencoded();
     this.registerRoute();
   }
@@ -64,5 +65,9 @@ export class App {
 
   private registerRoute(): void {
     this.app.use('/', this.route.router);
+  }
+
+  private setPassport(): void {
+    passport.initialize();
   }
 }
