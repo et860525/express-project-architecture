@@ -7,7 +7,7 @@ import { ResponseObject } from '../common/response/response.object';
 
 export abstract class ControllerBase {
 	
-	public formatResponse(status: HttpStatus = HttpStatus.INTERNAL_ERROR, data: any): ResponseObject {
+	public formatResponse(status: HttpStatus = HttpStatus.INTERNAL_ERROR, data: any): ResponseObject<any> {
 		const options: any = { status };
 
 		// If error put data into `message` by automate

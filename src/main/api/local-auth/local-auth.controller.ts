@@ -9,14 +9,14 @@ export class LocalAuthController extends ControllerBase {
 
 	protected readonly localAuthSvc = new LocalAuthService();
 
-	public async signup(req: Request): Promise<ResponseObject> {
+	public async signup(req: Request): Promise<ResponseObject<string>> {
 		const { username, password, email } = req.body;
 		const user = await this.localAuthSvc.addUser(username, password, email);
 		const token = this.localAuthSvc.generateJWT(user);
 		return this.formatResponse(HttpStatus.CREATED, token);
 	}
 
-	public async signin(req: Request, res: Response, next: NextFunction): Promise<ResponseObject> {
+	public async signin(req: Request, res: Response, next: NextFunction): Promise<ResponseObject<string>> {
 		passport.use(this.localAuthSvc.Strategy);
 		const token = await this.localAuthSvc.authenticate(req, res, next);
 		return this.formatResponse(HttpStatus.OK, token);

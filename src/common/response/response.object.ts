@@ -4,7 +4,7 @@ import { HttpStatus } from '../../types/HttpStatus';
 /*                       For controller response format                       */
 /* -------------------------------------------------------------------------- */
 
-export class ResponseObject {
+export class ResponseObject<T> {
 
 	public readonly status: HttpStatus = HttpStatus.INTERNAL_ERROR
 	public readonly message: string = '';

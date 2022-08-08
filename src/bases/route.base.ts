@@ -21,7 +21,7 @@ export abstract class RouteBase {
   // ResponseHandler will get a controller and 
   // use Promise to get controller `response data` or `catch error`
   protected responseHandler(method: (req: Request, res: Response, next: NextFunction) => 
-    Promise<ResponseObject>, controller = this.controller) {
+    Promise<ResponseObject<any>>, controller = this.controller) {
       return (req: Request, res: Response, next: NextFunction) => {
         method.call(this.controller, req, res, next)
           .then(obj => res.status(obj.status).json(obj))
