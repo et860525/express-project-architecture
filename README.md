@@ -2,6 +2,8 @@
 
 紀錄 express 的專案架構方式，檔案分類的方式是依照，程式的工作類型與服務的對象進行分類，並使用物件導向的方式來做設計，依照 MVC 的思維來建構，並逐步修改其中不足的地方。
 
+![layered-architecture.png](https://github.com/et860525/express-project-architecture/blob/main/layered-architecture.png)
+
 # Table of contents:
 
 - [Environments](#environments)
@@ -41,7 +43,7 @@ DB_NAME=db_name
 | .src/common | 不屬於特定服務對象的功能 |
 | .src/dtos | 存放 DTOs |
 | .src/exceptions | 存放錯誤處理檔案 |
-| .src/main | 存放 Routes, Controller |
+| .src/main | 存放 Routes, Controller, Service |
 | .src/middleware | 存放中間件 |
 | .src/models | 存放 Schema 相關設定的檔案 |
 | .src/repositories | 建立 repository 物件 |
